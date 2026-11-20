@@ -1,162 +1,394 @@
 <!DOCTYPE html>
-<!-- oss-template-2026:placeholder （この目印で，scripts/check.sh が「準備中」のページかどうかを見分けます） -->
-<!--
-  テンプレートの「準備中」のページです．
-  このページが https://ユーザー名.github.io/ に表示されたら，GitHub Pages の設定は成功です．
-  第7回の実習4で，このファイルを第6回で作った index.html に置きかえます．
--->
 <html lang="ja">
 <head>
+  <!-- 文字コードをUTF-8に設定 -->
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>準備中</title>
+  <!-- スマートフォンなどの画面幅に合わせて表示するための設定 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>き - ポートフォリオ</title>
   <style>
-    /* ===== 色の設定 ===== */
+    /* ========================================
+       全体・基本スタイル（和風で落ち着いた雰囲気）
+       ======================================== */
     :root {
-      --main-color: #2e7d32;  /* メインの色（見出し・番号） */
-      --bg-color: #f5f8f5;    /* ページの背景の色 */
-      --card-color: #ffffff;  /* カードの背景の色 */
-      --text-color: #222222;  /* 文字の色 */
-      --sub-color: #666666;   /* 補足の文字の色 */
-      --line-color: #dfe6df;  /* 区切り線の色 */
+      /* 好きな色（黒・青・ピンク・オレンジ・赤）を和風の落ち着いた色調に調整 */
+      --bg-base: #f7f4ef;        /* 和紙のような生成り色の背景 */
+      --bg-card: #ffffff;        /* カード部分の白背景 */
+      --color-sumi: #1e1e24;     /* 墨色（黒）：メインの文字色や引き締め色 */
+      --color-ai: #1f3a52;       /* 藍色（青）：見出しやアクセント */
+      --color-momo: #d97a8c;     /* 桃色（ピンク）：優しい和のアクセント */
+      --color-daidai: #d46a38;   /* 橙色（オレンジ）：温かみのあるアクセント */
+      --color-aka: #a62c2b;      /* 茜色（赤）：ポイントカラー */
+      --border-line: #dcd6cc;    /* 障子や枠線をイメージした薄い線 */
     }
 
-    /* パソコンやスマートフォンがダークモードのときの色 */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --main-color: #81c784;
-        --bg-color: #121512;
-        --card-color: #1e231e;
-        --text-color: #e8ece8;
-        --sub-color: #a0a8a0;
-        --line-color: #2f362f;
-      }
-    }
-
-    /* ページ全体：カードを画面のまんなかに置く */
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
+    * {
       box-sizing: border-box;
-      font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
-      line-height: 1.8;
-      color: var(--text-color);
-      background: var(--bg-color);
+      margin: 0;
+      padding: 0;
     }
 
-    /* まんなかのカード */
-    main {
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+      background-color: var(--bg-base);
+      /* CSSのみで和紙の繊維や格子を思わせる繊細な背景模様を表現 */
+      background-image: 
+        radial-gradient(var(--border-line) 1px, transparent 1px),
+        radial-gradient(var(--border-line) 1px, var(--bg-base) 1px);
+      background-size: 32px 32px;
+      background-position: 0 0, 16px 16px;
+      color: var(--color-sumi);
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+    }
+
+    /* ========================================
+       ヘッダー（上部のタイトル・キャッチコピー）
+       ======================================== */
+    header {
+      background-color: var(--color-sumi);
+      color: #f7f4ef;
+      text-align: center;
+      padding: 3.5rem 1.5rem 3rem;
+      border-bottom: 5px solid var(--color-ai);
+      position: relative;
+    }
+
+    /* ヘッダー下部の和風な飾り線（好きな色を組み込んだグラデーション） */
+    header::after {
+      content: "";
+      display: block;
       width: 100%;
-      max-width: 600px;
-      padding: 32px 28px;
-      background: var(--card-color);
-      border-top: 6px solid var(--main-color);
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      height: 4px;
+      background: linear-gradient(
+        to right,
+        var(--color-ai),
+        var(--color-momo),
+        var(--color-daidai),
+        var(--color-aka)
+      );
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+    .site-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-momo);
+      letter-spacing: 0.2em;
+      margin-bottom: 0.5rem;
     }
 
     h1 {
-      margin: 0 0 4px;
-      font-size: clamp(1.3rem, 6vw, 1.6rem);  /* スマートフォンでは少し小さくする */
-      line-height: 1.4;
-      color: var(--main-color);
-    }
-
-    h2 {
-      margin: 28px 0 8px;
-      padding-bottom: 4px;
-      font-size: 1.05rem;
-      border-bottom: 1px solid var(--line-color);
-    }
-
-    /* 「設定は成功」のバッジ */
-    .badge {
+      font-size: 2.5rem;
+      font-weight: normal;
+      letter-spacing: 0.3em;
+      margin-bottom: 1.2rem;
+      /* 家紋や落款印を思わせる枠飾り */
       display: inline-block;
-      margin: 8px 0 0;
-      padding: 2px 12px;
+      padding: 0.2em 0.8em;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .catchphrase {
+      font-size: 1.1rem;
+      color: #e6e0d6;
+      margin-top: 0.5rem;
+    }
+
+    /* ========================================
+       メインコンテンツ領域のレイアウト
+       ======================================== */
+    main {
+      max-width: 820px;
+      margin: 2.5rem auto;
+      padding: 0 1.2rem;
+    }
+
+    /* 各セクションのカードデザイン */
+    section {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-line);
+      border-left: 6px solid var(--color-ai);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 12px rgba(30, 30, 36, 0.05);
+    }
+
+    /* セクションごとに左側のアクセントカラーを好きな色で変化させる */
+    section.sec-basic { border-left-color: var(--color-ai); }
+    section.sec-hobby { border-left-color: var(--color-daidai); }
+    section.sec-skill { border-left-color: var(--color-sumi); }
+    section.sec-goal  { border-left-color: var(--color-aka); }
+    section.sec-word  { border-left-color: var(--color-momo); }
+
+    /* セクション見出しのデザイン */
+    h2 {
+      font-size: 1.35rem;
+      color: var(--color-ai);
+      border-bottom: 1px solid var(--border-line);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    /* 見出し前の和風なひし形装飾 */
+    h2::before {
+      content: "◆";
       font-size: 0.9rem;
+      color: var(--color-aka);
+    }
+
+    /* ========================================
+       基本情報リストのスタイル
+       ======================================== */
+    .basic-info-list {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      row-gap: 0.8rem;
+      align-items: baseline;
+    }
+
+    .basic-info-list dt {
       font-weight: bold;
-      color: var(--card-color);
-      background: var(--main-color);
-      border-radius: 999px;
+      color: var(--color-ai);
+      position: relative;
     }
 
-    /* 「次にやること」の番号つきリスト */
-    ol {
-      margin: 0;
-      padding-left: 1.4em;
+    .basic-info-list dt::after {
+      content: "：";
+      position: absolute;
+      right: 0.5rem;
     }
-    li {
-      margin-bottom: 6px;
+
+    .basic-info-list dd {
+      padding-left: 0.5rem;
     }
-    li::marker {
+
+    /* ========================================
+       趣味・好きなことのタグ風リスト
+       ======================================== */
+    .hobby-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .hobby-list li {
+      background-color: var(--bg-base);
+      border: 1px solid var(--color-daidai);
+      color: var(--color-sumi);
+      padding: 0.45rem 1.1rem;
+      font-size: 0.95rem;
+      position: relative;
+    }
+
+    /* タグの左端に小さな色アクセント */
+    .hobby-list li::before {
+      content: "・";
+      color: var(--color-daidai);
       font-weight: bold;
-      color: var(--main-color);
     }
 
-    /* コマンドの見た目 */
-    code {
-      padding: 1px 6px;
-      font-family: "SFMono-Regular", Consolas, monospace;
-      font-size: 0.88em;
-      background: var(--bg-color);
-      border-radius: 4px;
-      white-space: nowrap;  /* コマンドの途中で折り返さない */
+    /* ========================================
+       プログラミング経験のスタイル
+       ======================================== */
+    .skill-tags {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
     }
 
-    /* 補足の小さな文字 */
-    .sub {
+    .skill-tags li {
+      background-color: var(--color-sumi);
+      color: #ffffff;
+      padding: 0.3rem 0.9rem;
       font-size: 0.9rem;
-      color: var(--sub-color);
+      font-family: sans-serif; /* 言語名は読みやすいゴシック体に */
+      letter-spacing: 0.03em;
     }
 
-    /* いちばん下の小さな文字 */
+    .skill-note {
+      font-size: 0.95rem;
+      color: #4a4a52;
+    }
+
+    /* ========================================
+       この授業で学びたいこと
+       ======================================== */
+    .goal-text {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: var(--color-aka);
+    }
+
+    /* ========================================
+       ひとこと（桃の花言葉）の特別装飾
+       ======================================== */
+    .sec-word {
+      background-color: #fdf9fa;
+      text-align: center;
+      border-top: 1px solid var(--color-momo);
+      border-right: 1px solid var(--color-momo);
+      border-bottom: 1px solid var(--color-momo);
+    }
+
+    .sec-word h2 {
+      justify-content: center;
+      color: var(--color-aka);
+    }
+
+    .sec-word h2::before {
+      color: var(--color-momo);
+    }
+
+    .word-quote {
+      font-size: 1.2rem;
+      padding: 0.8rem 1rem;
+      color: var(--color-sumi);
+    }
+
+    .word-highlight {
+      color: var(--color-aka);
+      font-weight: bold;
+      border-bottom: 2px solid var(--color-momo);
+      padding-bottom: 2px;
+    }
+
+    /* ========================================
+       フッター（下部）
+       ======================================== */
     footer {
-      margin-top: 28px;
-      padding-top: 12px;
-      font-size: 0.8rem;
-      color: var(--sub-color);
-      border-top: 1px solid var(--line-color);
+      background-color: var(--color-sumi);
+      color: #dcd6cc;
+      text-align: center;
+      padding: 1.8rem 1rem;
+      font-size: 0.85rem;
+      margin-top: 3rem;
     }
-    a {
-      color: var(--main-color);
+
+    /* ========================================
+       スマートフォン向けのレスポンシブ調整
+       ======================================== */
+    @media (max-width: 600px) {
+      header {
+        padding: 2.5rem 1rem 2.2rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .catchphrase {
+        font-size: 1rem;
+      }
+
+      section {
+        padding: 1.5rem 1.2rem;
+      }
+
+      /* スマホでは基本情報の項目と内容を縦並びに調整 */
+      .basic-info-list {
+        grid-template-columns: 1fr;
+        row-gap: 0.3rem;
+      }
+
+      .basic-info-list dt {
+        margin-top: 0.6rem;
+      }
+
+      .basic-info-list dt::after {
+        content: "";
+      }
+
+      .basic-info-list dd {
+        padding-left: 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px dashed var(--border-line);
+      }
+
+      .basic-info-list dd:last-of-type {
+        border-bottom: none;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- ヘッダー：ニックネームとキャッチコピー -->
+  <header>
+    <p class="site-subtitle">自己紹介</p>
+    <h1>き</h1>
+    <p class="catchphrase">１日が３０時間あればいいのに.</p>
+  </header>
+
+  <!-- メインコンテンツ -->
   <main>
-    <h1>このサイトは準備中です</h1>
-    <p class="badge">GitHub Pages の設定 OK</p>
-    <p>このページが表示されていれば，あなたのリポジトリは正しく公開されています．
-      あとは，このページを自分のサイトに置きかえるだけです．</p>
 
-    <h2>次にやること</h2>
-    <ol>
-      <li>このリポジトリを，SSHのURLで <code>git clone</code> する</li>
-      <li><code>index.html</code> を，第6回で作ったサイトに置きかえる</li>
-      <li><code>bash scripts/check.sh</code> で，公開前のチェックをする</li>
-      <li><code>git add</code> → <code>git commit</code> → <code>git push origin main</code> する</li>
-      <li>数分待ってから，このページを再読み込みする</li>
-    </ol>
-    <p class="sub">再読み込みしても変わらないときは，強制再読み込み（Windows：Ctrl + F5，Mac：Command + Shift + R）を試しましょう．</p>
+    <!-- 基本情報セクション -->
+    <section class="sec-basic">
+      <h2>基本情報</h2>
+      <dl class="basic-info-list">
+        <dt>ニックネーム</dt>
+        <dd>き</dd>
+        <dt>学年</dt>
+        <dd>３</dd>
+        <dt>所属</dt>
+        <dd>拓殖大学工学部</dd>
+      </dl>
+    </section>
 
-    <h2>公開する前に</h2>
-    <ul>
-      <li>本名のフルネーム・学籍番号・住所・電話番号・メールアドレスが入っていないか</li>
-      <li>自己紹介に書いていないことを，AIが付け足していないか</li>
-    </ul>
-    <p class="sub">このリポジトリは Public です．サイトだけでなく，ファイルの中身やコミットの履歴も，誰でも見ることができます．</p>
+    <!-- 趣味・好きなことセクション -->
+    <section class="sec-hobby">
+      <h2>趣味・好きなこと</h2>
+      <ul class="hobby-list">
+        <li>ランニング</li>
+        <li>サイクリング</li>
+        <li>剣道</li>
+        <li>ゲーム</li>
+        <li>モード系ファッション</li>
+        <li>山</li>
+        <li>音楽</li>
+      </ul>
+    </section>
 
-    <footer>
-      拓殖大学工学部『オープンソースソフトウェア』2026年度<br>
-      <a href="https://github.com/tomohitoy/oss-practice-2026/blob/main-07/chap07/README.md">第7回の資料</a>
-      ・
-      <a href="https://github.com/tomohitoy/oss-template-2026">テンプレート（tomohitoy/oss-template-2026）</a>
-    </footer>
+    <!-- プログラミング経験セクション -->
+    <section class="sec-skill">
+      <h2>プログラミング経験</h2>
+      <ul class="skill-tags">
+        <li>Java</li>
+        <li>Python</li>
+        <li>C</li>
+        <li>JavaScript</li>
+        <li>HTML</li>
+        <li>CSS</li>
+      </ul>
+      <p class="skill-note">授業の演習で使った程度です.</p>
+    </section>
+
+    <!-- この授業で学びたいことセクション -->
+    <section class="sec-goal">
+      <h2>この授業で学びたいこと</h2>
+      <p class="goal-text">OSSがなんたるか</p>
+    </section>
+
+    <!-- ひとことセクション -->
+    <section class="sec-word">
+      <h2>ひとこと</h2>
+      <p class="word-quote">桃の花言葉は, 「<span class="word-highlight">天下無敵</span>」.</p>
+    </section>
+
   </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>き - 拓殖大学工学部</p>
+  </footer>
+
 </body>
 </html>
